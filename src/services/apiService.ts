@@ -1,4 +1,9 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.agenticx.co.in';
+let BASE_URL = import.meta.env.VITE_API_URL || 'https://api.agenticx.co.in';
+
+// Robust check to ensure BASE_URL starts with http:// or https:// to prevent treatment as relative path
+if (BASE_URL && !BASE_URL.startsWith('http://') && !BASE_URL.startsWith('https://')) {
+  BASE_URL = `https://${BASE_URL}`;
+}
 
 export interface Certificate {
   id: string;
@@ -17,7 +22,7 @@ export const apiService = {
    * Fetches certificate details using email and date of birth
    */
   async fetchCertificate(email: string, dob: string): Promise<Certificate> {
-    const url = `${API_BASE_URL}/api/v1/certificates/fetch`;
+    const url = `${BASE_URL}/api/v1/certificates/fetch`;
     
     const response = await fetch(url, {
       method: 'POST',
@@ -43,7 +48,7 @@ export const apiService = {
    * Verifies certificate authenticity using its unique ID
    */
   async verifyCertificate(certificateId: string): Promise<Certificate> {
-    const url = `${API_BASE_URL}/api/v1/certificates/verify/${certificateId}`;
+    const url = `${BASE_URL}/api/v1/certificates/verify/${certificateId}`;
     
     const response = await fetch(url, {
       method: 'GET',
