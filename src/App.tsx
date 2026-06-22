@@ -11,6 +11,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/result" element={<Result />} />
           <Route path="/verify/:id" element={<Verify />} />
+          <Route path="/verify" element={<Verify />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

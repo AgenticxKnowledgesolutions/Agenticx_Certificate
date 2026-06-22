@@ -45,10 +45,12 @@ export const apiService = {
   },
 
   /**
-   * Verifies certificate authenticity using its unique ID
+   * Verifies certificate authenticity using its unique ID or a secure JWT token
    */
-  async verifyCertificate(certificateId: string): Promise<Certificate> {
-    const url = `${BASE_URL}/api/v1/certificates/verify/${certificateId}`;
+  async verifyCertificate(certificateIdOrToken: string, isToken: boolean = false): Promise<Certificate> {
+    const url = isToken
+      ? `${BASE_URL}/api/v1/certificates/verify?token=${encodeURIComponent(certificateIdOrToken)}`
+      : `${BASE_URL}/api/v1/certificates/verify/${certificateIdOrToken}`;
     
     const response = await fetch(url, {
       method: 'GET',
@@ -57,7 +59,7 @@ export const apiService = {
       },
     });
 
-    if (response.status === 404) {
+    if (response.status === 404 || response.status === 400) {
       throw new Error('Certificate not found or invalid');
     }
 

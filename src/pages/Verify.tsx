@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import { apiService } from '../services/apiService';
 import type { Certificate } from '../services/apiService';
 import { ShieldCheck, ShieldAlert, Award, Calendar, BookOpen, User, AlertCircle, ArrowLeft, ExternalLink } from 'lucide-react';
 
 export const Verify: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const [certificate, setCertificate] = useState<Certificate | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Extract token from query params
+  const token = new URLSearchParams(location.search).get('token');
+
   useEffect(() => {
-    if (!id) {
-      setError('Certificate ID is required for verification.');
+    const identifier = token || id;
+    if (!identifier) {
+      setError('Certificate token or ID is required for verification.');
       setLoading(false);
       return;
     }
@@ -21,7 +26,7 @@ export const Verify: React.FC = () => {
       try {
         setLoading(true);
         setError(null);
-        const data = await apiService.verifyCertificate(id);
+        const data = await apiService.verifyCertificate(identifier, !!token);
         setCertificate(data);
       } catch (err: any) {
         console.error('Verification error:', err);
@@ -32,7 +37,7 @@ export const Verify: React.FC = () => {
     };
 
     verifyCert();
-  }, [id]);
+  }, [id, token]);
 
   const getCandidateName = () => {
     return certificate?.candidate_name || certificate?.name || 'N/A';
@@ -133,7 +138,7 @@ export const Verify: React.FC = () => {
         <div className="verify-content">
           <div className="verify-header">
             <h1 className="verify-title">Verification Details</h1>
-            <p className="verify-id-label">ID: {id}</p>
+            <p className="verify-id-label">ID: {id || 'Secure JWT Token'}</p>
           </div>
 
           <div className="verify-details-list">
