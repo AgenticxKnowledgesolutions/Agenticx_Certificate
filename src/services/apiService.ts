@@ -15,6 +15,7 @@ export interface Certificate {
   completion_date_formatted?: string;
   certificate_url?: string;
   status?: 'Valid' | 'Revoked' | string;
+  certificate_id?: string;
 }
 
 export const apiService = {
@@ -41,7 +42,11 @@ export const apiService = {
       throw new Error(errorData.detail || errorData.message || 'Failed to fetch certificate');
     }
 
-    return await response.json();
+    const data = await response.json();
+    return {
+      ...data,
+      id: data.certificate_id || data.id,
+    };
   },
 
   /**
@@ -68,6 +73,10 @@ export const apiService = {
       throw new Error(errorData.detail || errorData.message || 'Verification failed');
     }
 
-    return await response.json();
+    const data = await response.json();
+    return {
+      ...data,
+      id: data.certificate_id || data.id || certificateIdOrToken,
+    };
   }
 };
