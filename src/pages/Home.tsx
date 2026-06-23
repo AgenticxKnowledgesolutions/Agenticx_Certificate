@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Award, Mail, Calendar, ArrowRight, ShieldCheck, ExternalLink } from 'lucide-react';
+import { Mail, Calendar, ArrowRight, ShieldCheck } from 'lucide-react';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -8,7 +8,6 @@ export const Home: React.FC = () => {
   const [dob, setDob] = useState('');
   const [errors, setErrors] = useState<{ email?: string; dob?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
     // Landing page SEO optimization
@@ -54,44 +53,7 @@ export const Home: React.FC = () => {
 
   return (
     <div className="portal-landing-wrapper">
-      {/* 1. Header Navigation Bar */}
-      <header className="portal-header">
-        <div className="header-inner">
-          <a href="https://www.agenticx.co.in" className="header-logo-link">
-            <div className="header-logo-badge">
-              {!logoError ? (
-                <img 
-                  src="/AgenticX.png" 
-                  alt="AgenticX Logo" 
-                  className="header-logo-img" 
-                  onError={() => setLogoError(true)}
-                />
-              ) : (
-                <Award className="logo-icon" size={20} />
-              )}
-            </div>
-            <span className="header-brand-name">AgenticX</span>
-          </a>
-          
-          <nav className="header-nav">
-            <a href="https://www.agenticx.co.in" target="_blank" rel="noopener noreferrer" className="nav-btn">
-              Home
-            </a>
-            <a href="https://www.agenticx.co.in/courses" target="_blank" rel="noopener noreferrer" className="nav-btn accent-nav-btn">
-              Courses
-              <ExternalLink size={12} />
-            </a>
-            <a href="https://www.agenticx.co.in/about" target="_blank" rel="noopener noreferrer" className="nav-btn">
-              About Us
-            </a>
-            <a href="https://www.agenticx.co.in/contact" target="_blank" rel="noopener noreferrer" className="nav-btn">
-              Contact
-            </a>
-          </nav>
-        </div>
-      </header>
-
-      {/* 2. Hero Section and Form Container */}
+      {/* Hero Section and Form Container */}
       <main className="portal-hero-section">
         <div className="hero-grid">
           
