@@ -187,7 +187,19 @@ export const BrandingSection: React.FC<BrandingSectionProps> = ({
 
       {/* 5. Footer */}
       <footer className="branding-portal-footer">
-        <span className="footer-company">AgenticX Knowledge Solutions</span>
+        <span className="footer-company">© {new Date().getFullYear()} AgenticX Knowledge Solutions. All rights reserved.</span>
+        <span className="footer-developer">
+          Developed by{' '}
+          <a 
+            href="https://github.com/fazilyousuf" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="developer-link"
+          >
+            Muhammad Fazil
+          </a>{' '}
+          for AgenticX
+        </span>
         <a 
           href="https://www.agenticx.co.in" 
           target="_blank" 
