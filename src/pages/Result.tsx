@@ -3,6 +3,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { apiService } from '../services/apiService';
 import type { Certificate } from '../services/apiService';
 import { ArrowLeft, Download, ExternalLink, AlertCircle, FileText, CheckCircle } from 'lucide-react';
+import { BrandingSection } from '../components/BrandingSection';
 
 export const Result: React.FC = () => {
   const location = useLocation();
@@ -213,6 +214,11 @@ export const Result: React.FC = () => {
           </div>
         </div>
       </div>
+      <BrandingSection 
+        recipientName={getCandidateName()} 
+        courseName={getCourseName()} 
+        isVerifyPage={false} 
+      />
     </div>
   );
 };

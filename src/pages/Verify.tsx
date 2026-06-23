@@ -3,6 +3,7 @@ import { useParams, useLocation, Link } from 'react-router-dom';
 import { apiService } from '../services/apiService';
 import type { Certificate } from '../services/apiService';
 import { ShieldCheck, ShieldAlert, Award, Calendar, BookOpen, User, AlertCircle, ArrowLeft, ExternalLink } from 'lucide-react';
+import { BrandingSection } from '../components/BrandingSection';
 
 export const Verify: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -205,6 +206,11 @@ export const Verify: React.FC = () => {
           </div>
         </div>
       </div>
+      <BrandingSection 
+        recipientName={getCandidateName()} 
+        courseName={getCourseName()} 
+        isVerifyPage={true} 
+      />
     </div>
   );
 };
