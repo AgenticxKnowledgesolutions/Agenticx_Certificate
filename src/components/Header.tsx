@@ -21,12 +21,12 @@ export const Header: React.FC = () => {
               <Award className="logo-icon" size={20} />
             )}
           </div>
-          <span className="header-brand-name">AgenticX Portal</span>
+          <span className="header-brand-name">AgenticX Knowledge Solutions</span>
         </Link>
         
         <nav className="header-nav">
           <a href="https://www.agenticx.co.in" target="_blank" rel="noopener noreferrer" className="nav-btn">
-            Home
+            Website
           </a>
           <a href="https://www.agenticx.co.in/courses" target="_blank" rel="noopener noreferrer" className="nav-btn accent-nav-btn">
             Courses
